@@ -21,7 +21,7 @@ Online radio cast
 	value="officedrive.server.persistence.MySqlPersistence" />
 </Context>
 
-# Config du Server
+# Config DebugConfiguration Eclipse du Server Tomcat
 -Dcatalina.base="C:\dev\java\officeDriveGWT\.metadata\.plugins\org.eclipse.wst.server.core\tmp0" -Dcatalina.home="C:\dev\tomcat-8.5.29" -Dwtp.deploy="C:\dev\java\officeDriveGWT\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps" -Djava.endorsed.dirs="C:\dev\tomcat-8.5.29\endorsed"
 
 # Onglet servers Eclipse
@@ -32,11 +32,9 @@ ajouter le module de l'application avec un clique droit sur "Tomcat v8......" ->
 - Java
 - JavaScript
 
-# Config du CodeServer
+# Config DebugConfiguration Eclipse du CodeServer
 MainClass : com.google.gwt.dev.codeserver.CodeServer
 Arguments : officedrive.OfficeDrive -style PRETTY
 
-# Config SDBG
+# Config DebugConfiguration SDBG
 URL : http://localhost:8080/OfficeDrive?username=admin&adminMode=true
-
-#
