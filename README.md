@@ -1,5 +1,5 @@
 # Radio2me
-Online radio cast
+Online radio cast avec GWT et GWTMaterial
 
 # Mise en place de l'environnement de dev
 
