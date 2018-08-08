@@ -21,4 +21,9 @@ Exemple de config de base pour le serveur tomcat
 	value="officedrive.server.persistence.MySqlPersistence" />
 </Context>
 
+Config du CodeServer
+MainClass : com.google.gwt.dev.codeserver.CodeServer
+Arguments : officedrive.OfficeDrive -style PRETTY
 
+Config SDBG
+URL : http://localhost:8080/OfficeDrive?username=admin&adminMode=true
