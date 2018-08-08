@@ -1,7 +1,7 @@
 # Radio2me
 Online radio cast
 
-#exemple de config de base pour le serveur tomcat
+Exemple de config de base pour le serveur tomcat
 <Context docBase="OfficeDrive" path="/OfficeDrive"
 	reloadable="true" source="org.eclipse.jst.jee.server:OfficeDrive"
 	antiResourceLocking="false">
@@ -20,4 +20,5 @@ Online radio cast
 	name="jdbc.officedrive.serverClass" type="java.lang.String"
 	value="officedrive.server.persistence.MySqlPersistence" />
 </Context>
+
 
