@@ -1,8 +1,8 @@
 # Radio2me
 Online radio cast
 
-# Exemple de config server.xml de base pour le serveur tomcat
-<Context docBase="OfficeDrive" path="/OfficeDrive"
+## Exemple de config server.xml de base pour le serveur tomcat
+	<Context docBase="OfficeDrive" path="/OfficeDrive"
 	reloadable="true" source="org.eclipse.jst.jee.server:OfficeDrive"
 	antiResourceLocking="false">
 
@@ -19,9 +19,9 @@ Online radio cast
 	<Environment description="" override="false"
 	name="jdbc.officedrive.serverClass" type="java.lang.String"
 	value="officedrive.server.persistence.MySqlPersistence" />
-</Context>
+	</Context>
 
-# Config DebugConfiguration Eclipse du Server Tomcat
+## Config DebugConfiguration Eclipse du Server Tomcat
 -Dcatalina.base="C:\dev\java\officeDriveGWT\.metadata\.plugins\org.eclipse.wst.server.core\tmp0" -Dcatalina.home="C:\dev\tomcat-8.5.29" -Dwtp.deploy="C:\dev\java\officeDriveGWT\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps" -Djava.endorsed.dirs="C:\dev\tomcat-8.5.29\endorsed"
 
 # Onglet servers Eclipse
