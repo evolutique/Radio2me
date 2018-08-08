@@ -24,6 +24,13 @@ Online radio cast
 # Config du Server
 -Dcatalina.base="C:\dev\java\officeDriveGWT\.metadata\.plugins\org.eclipse.wst.server.core\tmp0" -Dcatalina.home="C:\dev\tomcat-8.5.29" -Dwtp.deploy="C:\dev\java\officeDriveGWT\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps" -Djava.endorsed.dirs="C:\dev\tomcat-8.5.29\endorsed"
 
+# Onglet servers Eclipse
+ajouter le module de l'application avec un clique droit sur "Tomcat v8......" -> Add and Remove...
+
+# Project Facets activé
+- Dynamic Web Module (mettre war à la place de WebContent)
+- Java
+- JavaScript
 
 # Config du CodeServer
 MainClass : com.google.gwt.dev.codeserver.CodeServer
