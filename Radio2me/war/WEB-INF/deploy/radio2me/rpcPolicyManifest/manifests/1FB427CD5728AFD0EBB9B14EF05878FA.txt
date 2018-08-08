@@ -1,0 +1,2 @@
+serviceClass: radio2me.client.GreetingService
+path: D6CA08A8C1A4614B46F6C7A4A4A82B08.gwt.rpc
