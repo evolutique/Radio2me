@@ -1,16 +1,11 @@
 package radio2me.server;
 
-import java.io.IOException;
 import java.net.URL;
-
-import javax.sound.sampled.AudioFormat;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.DataLine;
-import javax.sound.sampled.SourceDataLine;
+import java.net.URLConnection;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
+import javazoom.jl.player.Player;
 import radio2me.client.PlayerService;
 
 /**
@@ -19,43 +14,33 @@ import radio2me.client.PlayerService;
 @SuppressWarnings("serial")
 public class PlayerServiceImpl extends RemoteServiceServlet implements PlayerService {
 
+	private static Player player;
+
 	public Boolean playUrl(String pUrl) throws Exception {
-		Boolean result = false;
-		AudioInputStream din = null;
+		Boolean result = true;
 		try {
-			AudioInputStream in = AudioSystem.getAudioInputStream(new URL(pUrl));
-			AudioFormat baseFormat = in.getFormat();
-			AudioFormat decodedFormat = new AudioFormat(AudioFormat.Encoding.PCM_SIGNED, baseFormat.getSampleRate(), 16,
-					baseFormat.getChannels(), baseFormat.getChannels() * 2, baseFormat.getSampleRate(), false);
-			din = AudioSystem.getAudioInputStream(decodedFormat, in);
-			DataLine.Info info = new DataLine.Info(SourceDataLine.class, decodedFormat);
-			SourceDataLine line = (SourceDataLine) AudioSystem.getLine(info);
-			if (line != null) {
-				line.open(decodedFormat);
-				byte[] data = new byte[4096];
-				// Start
-				line.start();
-
-				int nBytesRead;
-				while ((nBytesRead = din.read(data, 0, data.length)) != -1) {
-					line.write(data, 0, nBytesRead);
-				}
-				// Stop
-				line.drain();
-				line.stop();
-				line.close();
-				din.close();
+			URLConnection urlConnection = new URL(pUrl).openConnection();
+			urlConnection.connect();
+			if (null != player) {
+				player.close();
 			}
-
+			player = new Player(urlConnection.getInputStream());
+			// instruction bloquante
+			player.play();
 		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			if (din != null) {
-				try {
-					din.close();
-				} catch (IOException e) {
-				}
-			}
+			System.out.println(e.toString());
+			throw e;
+		}
+
+		return result;
+	}
+
+	public Boolean stop() {
+		Boolean result = false;
+		if (null != player) {
+			player.close();
+			player = null;
+			result = true;
 		}
 
 		return result;

@@ -8,10 +8,12 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 public interface PlayerServiceAsync {
 	
 	/**
-	 * joue l'url passé en paramètre. retourne true si la lecture à pu commencer
+	 * joue l'url passï¿½ en paramï¿½tre. retourne true si la lecture ï¿½ pu commencer
 	 * @param pUrl
 	 * @param callback
 	 * @throws Exception
 	 */
-	public void playUrl(String pUrl, AsyncCallback<Boolean> callback) throws Exception;
+	public void playUrl(String pUrl, AsyncCallback<Boolean> callback);
+
+	public void stop(AsyncCallback<Boolean> callback);
 }

@@ -9,4 +9,6 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 @RemoteServiceRelativePath("player")
 public interface PlayerService extends RemoteService {
 	public Boolean playUrl(String pUrl) throws Exception;
+	
+	public Boolean stop();
 }

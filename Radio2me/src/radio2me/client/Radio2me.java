@@ -16,28 +16,73 @@ import gwt.material.design.client.ui.MaterialPanel;
 import gwt.material.design.client.ui.MaterialRow;
 import gwt.material.design.client.ui.MaterialTextBox;
 import gwt.material.design.client.ui.MaterialToast;
+import radio2me.shared.StationsCH;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
  */
 public class Radio2me implements EntryPoint {
-//	private final PlayerServiceAsync greetingService = GWT.create(PlayerService.class);
-//	boolean playing = false;
-//	Audio audio = Audio.createIfSupported();
+	private boolean playing = false;
+	private PlayerServiceAsync service = MainModel.getInstance().queryPlayerService();
+
+	private MaterialTextBox tbURL = new MaterialTextBox();
+	private MaterialButton btPlay = new MaterialButton("", IconType.PLAY_CIRCLE_FILLED);
 
 	/**
 	 * This is the entry point method.
 	 */
 	public void onModuleLoad() {
 		MaterialContainer container = new MaterialContainer();
+		// container.setHeight("200px");
 
+		container.add(buildMainPanel());
+
+		// on ajoute tout au DOM
+		RootPanel.get().add(container);
+	}
+
+	private MaterialPanel buildMainPanel() {
 		// panel
 		MaterialPanel mainPanel = new MaterialPanel();
-		container.add(mainPanel);
+		mainPanel.setHeight("300px");
+
+		// ligne des prÃ©enregistrÃ©
+		MaterialRow favorisRow = buildFavorisRow();
+		mainPanel.add(favorisRow);
+
+		// ligne de l'url et des boutons
+		MaterialRow urlRow = buildURLRow();
+		mainPanel.add(urlRow);
+
+		return mainPanel;
+	}
+
+	private MaterialRow buildFavorisRow() {
 		MaterialRow mainRow = new MaterialRow();
-		mainPanel.add(mainRow);
 		MaterialColumn mainCol = new MaterialColumn();
-		mainCol.setGrid("s10");
+		mainCol.setGrid("s12");
+		mainRow.add(mainCol);
+		for (StationsCH currentStation : StationsCH.values()) {
+			MaterialButton newStationButton = new MaterialButton(currentStation.name());
+			newStationButton.addClickHandler(new ClickHandler() {
+
+				@Override
+				public void onClick(ClickEvent event) {
+					tbURL.setText(currentStation.toString());
+					playAction();
+				}
+			});
+			newStationButton.setGrid("s2");
+			mainCol.add(newStationButton);
+		}
+
+		return mainRow;
+	}
+
+	private MaterialRow buildURLRow() {
+		MaterialRow mainRow = new MaterialRow();
+		MaterialColumn mainCol = new MaterialColumn();
+		mainCol.setGrid("s12");
 		mainRow.add(mainCol);
 
 		// composants
@@ -45,56 +90,20 @@ public class Radio2me implements EntryPoint {
 		lbURL.setGrid("s2");
 		mainCol.add(lbURL);
 
-		MaterialTextBox tbURL = new MaterialTextBox();
+		tbURL = new MaterialTextBox();
 		tbURL.setText("http://energybern.ice.infomaniak.ch/energybern-high.mp3");
 		tbURL.setGrid("s8");
 		mainCol.add(tbURL);
 
 		// bouton play
-		MaterialButton btPlay = new MaterialButton("", IconType.PLAY_CIRCLE_FILLED);
+		btPlay = new MaterialButton("", IconType.PLAY_CIRCLE_FILLED);
 		btPlay.setIconPosition(IconPosition.NONE);
 		btPlay.setWidth("40px");
 		btPlay.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
-
-// Ci-après, version pour que le son sorte coté client
-//				if (!playing) {
-//					playing = true;
-//					btPlay.setIconType(IconType.PAUSE_CIRCLE_FILLED);
-//					if (null != audio) {
-//						audio.setSrc(tbURL.getText());
-//						audio.setEnabled(true);
-//						audio.setVolume(0.9);
-//						audio.play();
-//						if (null != audio.getError()) {
-//							MaterialToast.fireToast("Erreur de lecture");
-//						}
-//					}
-//				} else {
-//					playing = false;
-//					btPlay.setIconType(IconType.PLAY_CIRCLE_FILLED);
-//					audio.pause();
-//				}
-				PlayerServiceAsync service = MainModel.getInstance().queryPlayerService();
-				try {
-					service.playUrl(tbURL.getText(), new AsyncCallback<Boolean>() {
-
-						@Override
-						public void onSuccess(Boolean result) {
-							MaterialToast.fireToast("lecture démarée");
-						}
-
-						@Override
-						public void onFailure(Throwable caught) {
-							MaterialToast.fireToast("Un problème lors du retour du serveur");
-
-						}
-					});
-				} catch (Exception e) {
-					MaterialToast.fireToast("Exception levéé : " + e.toString());
-				}
+				playAction();
 			}
 
 		});
@@ -115,7 +124,45 @@ public class Radio2me implements EntryPoint {
 		btAdd.setGrid("s1");
 		mainCol.add(btAdd);
 
-		// on ajoute tout au DOM
-		RootPanel.get().add(container);
+		return mainRow;
+	}
+
+	private void playAction() {
+		if (!playing) {
+			playing = true;
+			btPlay.setIconType(IconType.PAUSE_CIRCLE_FILLED);
+			MaterialToast.fireToast("lecture dÃ©marÃ©e");
+
+			service.playUrl(tbURL.getText(), new AsyncCallback<Boolean>() {
+
+				@Override
+				public void onSuccess(Boolean result) {
+					// pas de retour tant que le player tourne cotÃ© serveur
+				}
+
+				@Override
+				public void onFailure(Throwable caught) {
+					MaterialToast.fireToast("Un problÃ¨me lors du retour du serveur : " + caught.toString());
+
+				}
+			});
+		} else {
+			playing = false;
+			btPlay.setIconType(IconType.PLAY_CIRCLE_FILLED);
+			service.stop(new AsyncCallback<Boolean>() {
+
+				@Override
+				public void onFailure(Throwable caught) {
+					// TODO Auto-generated method stub
+
+				}
+
+				@Override
+				public void onSuccess(Boolean result) {
+					// TODO Auto-generated method stub
+
+				}
+			});
+		}
 	}
 }
