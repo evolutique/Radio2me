@@ -1,10 +1,9 @@
 package radio2me.client;
 
 import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.media.client.Audio;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.RootPanel;
 
 import gwt.material.design.client.constants.IconPosition;
@@ -22,9 +21,9 @@ import gwt.material.design.client.ui.MaterialToast;
  * Entry point classes define <code>onModuleLoad()</code>.
  */
 public class Radio2me implements EntryPoint {
-	private final GreetingServiceAsync greetingService = GWT.create(GreetingService.class);
-	boolean playing = false;
-	Audio audio = Audio.createIfSupported();
+//	private final PlayerServiceAsync greetingService = GWT.create(PlayerService.class);
+//	boolean playing = false;
+//	Audio audio = Audio.createIfSupported();
 
 	/**
 	 * This is the entry point method.
@@ -59,24 +58,45 @@ public class Radio2me implements EntryPoint {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				if (!playing) {
-					playing = true;
-					btPlay.setIconType(IconType.PAUSE_CIRCLE_FILLED);
-					if (null != audio) {
-						audio.setSrc(tbURL.getText());
-						audio.setEnabled(true);
-						audio.setVolume(0.9);
-						audio.play();
-						if (null != audio.getError()) {
-							MaterialToast.fireToast("Erreur de lecture");
+
+// Ci-après, version pour que le son sorte coté client
+//				if (!playing) {
+//					playing = true;
+//					btPlay.setIconType(IconType.PAUSE_CIRCLE_FILLED);
+//					if (null != audio) {
+//						audio.setSrc(tbURL.getText());
+//						audio.setEnabled(true);
+//						audio.setVolume(0.9);
+//						audio.play();
+//						if (null != audio.getError()) {
+//							MaterialToast.fireToast("Erreur de lecture");
+//						}
+//					}
+//				} else {
+//					playing = false;
+//					btPlay.setIconType(IconType.PLAY_CIRCLE_FILLED);
+//					audio.pause();
+//				}
+				PlayerServiceAsync service = MainModel.getInstance().queryPlayerService();
+				try {
+					service.playUrl(tbURL.getText(), new AsyncCallback<Boolean>() {
+
+						@Override
+						public void onSuccess(Boolean result) {
+							MaterialToast.fireToast("lecture démarée");
 						}
-					}
-				} else {
-					playing = false;
-					btPlay.setIconType(IconType.PLAY_CIRCLE_FILLED);
-					audio.pause();
+
+						@Override
+						public void onFailure(Throwable caught) {
+							MaterialToast.fireToast("Un problème lors du retour du serveur");
+
+						}
+					});
+				} catch (Exception e) {
+					MaterialToast.fireToast("Exception levéé : " + e.toString());
 				}
 			}
+
 		});
 		btPlay.setGrid("s1");
 		mainCol.add(btPlay);
