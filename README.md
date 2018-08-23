@@ -40,3 +40,10 @@ Arguments : officedrive.OfficeDrive -style PRETTY
 
 ## Config DebugConfiguration SDBG
 URL : http://localhost:8080/OfficeDrive?username=admin&adminMode=true
+
+## IPTABLE sur Raspberry
+pour ajouter une redirection 80->8080 : 
+iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 8080
+
+pour supprimer la règle :
+iptables -t nat -D PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 8080
