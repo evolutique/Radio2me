@@ -41,9 +41,13 @@ Arguments : officedrive.OfficeDrive -style PRETTY
 ## Config DebugConfiguration SDBG
 URL : http://localhost:8080/OfficeDrive?username=admin&adminMode=true
 
-## IPTABLE sur Raspberry
+## Raspberry
+### IPTABLE
 pour ajouter une redirection 80->8080 : 
 iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 8080
 
 pour supprimer la règle :
 iptables -t nat -D PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 8080
+#### audio
+pour que l'audio fonctionne avec le projet il faut ajouter l'utilisateur tomcat8 au groupe audio :
+usermod -a -G audio tomcat8
