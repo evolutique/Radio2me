@@ -42,12 +42,12 @@ Arguments : officedrive.OfficeDrive -style PRETTY
 URL : http://localhost:8080/OfficeDrive?username=admin&adminMode=true
 
 ## Raspberry
-### IPTABLE
+### Iptable
 pour ajouter une redirection 80->8080 : 
-iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 8080
+sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 8080
 
 pour supprimer la règle :
-iptables -t nat -D PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 8080
-#### audio
+sudo iptables -t nat -D PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 8080
+### Audio
 pour que l'audio fonctionne avec le projet il faut ajouter l'utilisateur tomcat8 au groupe audio :
 usermod -a -G audio tomcat8
