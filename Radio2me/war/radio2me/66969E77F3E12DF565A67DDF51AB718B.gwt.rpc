@@ -14,6 +14,7 @@ com.google.gwt.user.client.rpc.ServiceDefTarget$NoServiceEntryPointSpecifiedExce
 com.google.gwt.user.client.rpc.XsrfToken, false, false, true, true, com.google.gwt.user.client.rpc.XsrfToken/4254043109, 4254043109
 com.google.gwt.useragent.client.UserAgentAsserter$UserAgentAssertionError, true, true, false, false, com.google.gwt.useragent.client.UserAgentAsserter$UserAgentAssertionError/1267019011, 1267019011
 com.google.web.bindery.event.shared.UmbrellaException, true, true, false, false, com.google.web.bindery.event.shared.UmbrellaException/1025846929, 1025846929
+gwt.material.design.client.data.infinite.InfiniteDataCache, true, true, false, false, gwt.material.design.client.data.infinite.InfiniteDataCache/633567152, 633567152
 java.io.IOException, true, true, false, false, java.io.IOException/1159940531, 1159940531
 java.io.UnsupportedEncodingException, true, true, false, false, java.io.UnsupportedEncodingException/1526756933, 1526756933
 java.lang.ArithmeticException, true, true, false, false, java.lang.ArithmeticException/1539622151, 1539622151
@@ -45,6 +46,7 @@ java.lang.annotation.AnnotationTypeMismatchException, true, true, false, false, 
 java.security.DigestException, true, true, false, false, java.security.DigestException/629316798, 629316798
 java.security.GeneralSecurityException, true, true, false, false, java.security.GeneralSecurityException/2669239907, 2669239907
 java.security.NoSuchAlgorithmException, true, true, false, false, java.security.NoSuchAlgorithmException/2892037213, 2892037213
+java.util.ArrayList, true, true, false, false, java.util.ArrayList/4159755760, 4159755760
 java.util.Collections$EmptySet, true, true, false, false, java.util.Collections$EmptySet/3523698179, 3523698179
 java.util.ConcurrentModificationException, true, true, false, false, java.util.ConcurrentModificationException/2717383897, 2717383897
 java.util.EmptyStackException, true, true, false, false, java.util.EmptyStackException/89438517, 89438517
@@ -61,3 +63,4 @@ javax.validation.GroupDefinitionException, true, true, false, false, javax.valid
 javax.validation.UnexpectedTypeException, true, true, false, false, javax.validation.UnexpectedTypeException/593026390, 593026390
 javax.validation.ValidationException, true, true, false, false, javax.validation.ValidationException/1570221831, 1570221831
 radio2me.client.PlayerService, false, false, false, false, _, 2748441650
+radio2me.shared.StationRadio, true, true, true, true, radio2me.shared.StationRadio/1588297393, 1588297393

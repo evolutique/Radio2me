@@ -1,0 +1,2 @@
+serviceClass: radio2me.client.PlayerService
+path: 66969E77F3E12DF565A67DDF51AB718B.gwt.rpc

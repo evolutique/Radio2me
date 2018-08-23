@@ -1,3 +1,3 @@
 # Module radio2me
 # RPC service class, partial path of RPC policy file
-radio2me.client.PlayerService, 56F113A1012646B91A65B8D4D2323A5C.gwt.rpc
+radio2me.client.PlayerService, 66969E77F3E12DF565A67DDF51AB718B.gwt.rpc
